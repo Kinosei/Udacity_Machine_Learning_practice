@@ -12399,7 +12399,7 @@ elif waypoint == straight and light == green: <br>
 }<br>
 elif waypoint == right:<br>
 {<br>
-&nbsp;&nbsp;&nbsp;&nbsp; if (light == red and (left == None or left == right or left == left)) or light == green:<br>
+&nbsp;&nbsp;&nbsp;&nbsp; if light == green or left != forward:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; action = right<br>
 &nbsp;&nbsp;&nbsp;&nbsp; else:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;action = None<br>
