@@ -3,6 +3,7 @@ import math
 from environment import Agent, Environment
 from planner import RoutePlanner
 from simulator import Simulator
+import numpy as np
 
 class LearningAgent(Agent):
     """ An agent that learns to drive in the Smartcab world.
@@ -74,18 +75,19 @@ class LearningAgent(Agent):
         return state
 
 
-    def get_maxQ(self, state):
-        """ The get_maxQ function is called when the agent is asked to find the
-            maximum Q-value of all actions based on the 'state' the smartcab is in. """
+    def get_maxQ_index(self, state_str):
+        """ The get_maxQ_index function is called when the agent is asked to find the
+            maximum Q-value of all actions based on the 'state' the smartcab is in and returns that index of possible actions. """
 
         ########### 
         ## TO DO ##
         ###########
-        # Calculate the maximum Q-value of all actions for a given state
+        # Calculate the maximum Q-value of all actions for a given state and return the corresponding index of possible actions
 
-        maxQ = None
-
-        return maxQ 
+        vals=np.array(self.Q[state_str].values())
+        keys=list(self.Q[state_str].keys())
+        indexes = np.where(vals==vals.max())[0]
+        return int(keys[random.choice(indexes)])
 
 
     def createQ(self, state):
@@ -136,9 +138,7 @@ class LearningAgent(Agent):
             if random.uniform(0,1) < self.epsilon:
                 i = random.randint(0, 3)
             else:
-                v=list(self.Q[state_str].values())
-                k=list(self.Q[state_str].keys())
-                i = int(k[v.index(max(v))])
+                i = self.get_maxQ_index(state_str)
             return self.valid_actions[i]
 
 
